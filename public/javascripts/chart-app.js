@@ -11,8 +11,8 @@ app.controller('MainController', ['$scope', '$http',  function($scope, $http) {
   
   
   
-  var options = {'title':'Top 10 Countries that have the most fortune 500 companies in the world\n "https://en.wikipedia.org/wiki/Fortune_Global_500" ',
-  'width':1600,'height':800}
+  var options = {'title':'Top 10 Countries that have the most fortune 500 companies in the world ',
+  'width':1200,'height':500}
   
   chart.draw(table, options);
   
@@ -24,9 +24,12 @@ function formatDataForView(data) {
     var dataArray = [], keysArray = [];
     
     //get the keys
-    for(var prop in data[0]) {
-      keysArray.push(prop);
-    }
+    // for(var prop in data[0]) {
+    //   keysArray.push(prop);
+    // }
+    
+    keysArray.push('Country');
+    keysArray.push('Fortune 500 Companies');
     
     dataArray.push(keysArray);
     
@@ -34,7 +37,13 @@ function formatDataForView(data) {
     data.forEach(function(value){
         var dataEntry = [];
         for(var prop in value) {
-          dataEntry.push(parseInt(value[prop], 0));
+          if(prop == 'countries') {
+            dataEntry.push(value[prop]);
+          }
+          if(prop == 'numberOfCompanies') {
+            dataEntry.push(parseInt(value[prop], 0));
+          }
+            
         }
         dataArray.push(dataEntry);
     });
